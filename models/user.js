@@ -1,56 +1,45 @@
 let userDb;
 
+const awaitDbExecute = async (query, inputJson) => {
+    try {
+        return await userDb.any(query, inputJson);
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+}
+
 const findAll = () => {
-    userDb.any("SELECT $1 AS value", 123)
-        .then(function (data) {
-            console.log("DATA:", data);
-        })
-        .catch(function (error) {
-            console.log("ERROR:", error);
-        });
+    const query = 'SELECT * FROM users';
+    return awaitDbExecute(query);
 }
 
-const findOne = () => {
-    userDb.any("SELECT $1 AS value", 123)
-        .then(function (data) {
-            console.log("DATA:", data);
-        })
-        .catch(function (error) {
-            console.log("ERROR:", error);
-        });
+const findById = (id) => {
+    const query = 'SELECT * FROM users WHERE id = ${id}';
+    return awaitDbExecute(query, {id});
 }
 
-const destroy = () => {
-    userDb.any("SELECT $1 AS value", 123)
-        .then(function (data) {
-            console.log("DATA:", data);
-        })
-        .catch(function (error) {
-            console.log("ERROR:", error);
-        });
+const destroy = (id) => {
+    const query = 'DELETE FROM users WHERE id = ${id} RETURNING *';
+    return awaitDbExecute(query, {id});
 }
 
-const create = () => {
-    userDb.any("SELECT $1 AS value", 123)
-        .then(function (data) {
-            console.log("DATA:", data);
-        })
-        .catch(function (error) {
-            console.log("ERROR:", error);
-        });
+const create = (name) => {
+    const query = "" +
+        "INSERT INTO users (id, name) " +
+        "SELECT NEXTVAL('users_seq'), ${name} " +
+        "FROM (SELECT 1) fake " +
+        "WHERE NOT EXISTS (SELECT 1 FROM users WHERE name = ${name}) " +
+        "RETURNING * ";
+    return awaitDbExecute(query, {name});
 }
 
-const update = () => {
-    userDb.any("SELECT $1 AS value", 123)
-        .then(function (data) {
-            console.log("DATA:", data);
-        })
-        .catch(function (error) {
-            console.log("ERROR:", error);
-        });
+const update = (userId, userName) => {
+    const query = "UPDATE users SET name = ${userName} WHERE id = ${userId} AND name != ${userName} RETURNING *";
+    return awaitDbExecute(query, {userId, userName});
 }
 
 module.exports = (db) => {
     userDb = db;
-    return {findAll, findOne, destroy, create, update}
+    return {findAll, findById, destroy, create, update}
 }

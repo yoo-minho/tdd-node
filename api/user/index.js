@@ -8,4 +8,4 @@ module.exports = (controller) => {
     router.post('/', controller.create);
     router.put('/:id', controller.update);
     return router;
-}
+};

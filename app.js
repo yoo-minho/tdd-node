@@ -17,7 +17,31 @@ const userRoute = require('./api/user')(userController); //Route, Route Controll
 if (process.env.NODE_ENV !== 'test') app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static('public'))
 
+app.get('/', (req, res) => {
+    res.send("hello-world");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+});
 app.use('/users', userRoute);
 
 module.exports = app;

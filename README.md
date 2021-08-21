@@ -29,10 +29,13 @@
         CONSTRAINT user_pk PRIMARY KEY (id)  
       );
     - >CREATE SEQUENCE users_seq;
-      > 
 
 ### express.js 프로젝트 구조
 
 - https://velog.io/@hanhee/node.js-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%A1%B0
 - https://velog.io/@hopsprings2/%EA%B2%AC%EA%B3%A0%ED%95%9C-node.js-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90-%EC%84%A4%EA%B3%84%ED%95%98%EA%B8%B0
 - https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=jhc9639&logNo=222023396761&categoryNo=99&parentCategoryNo=0
+
+### issue 
+
+- postman이 안되면 desktop-agent 다운받기
